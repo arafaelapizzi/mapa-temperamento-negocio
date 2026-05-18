@@ -894,8 +894,14 @@
 
   // Sticky CTA
   const stickyCta = document.getElementById('stickyCta');
+  const investSection = document.getElementById('formulario');
+  
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 600) {
+    const investTop = investSection.getBoundingClientRect().top;
+    const investBottom = investSection.getBoundingClientRect().bottom;
+    
+    // Show after 600px scroll, hide when investment section is visible
+    if (window.scrollY > 600 && investTop > 100) {
       stickyCta.classList.add('show');
     } else {
       stickyCta.classList.remove('show');
