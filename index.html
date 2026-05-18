@@ -189,6 +189,7 @@
   .container {
     max-width: 720px;
     margin: 0 auto;
+    text-align: center;
   }
 
   .container-wide {
@@ -209,10 +210,7 @@
 
   /* ── DIVIDER ── */
   .divider {
-    width: 40px;
-    height: 1px;
-    background: var(--terracota);
-    margin: 32px 0;
+    display: none;
   }
 
   .divider-center {
@@ -251,6 +249,7 @@
     display: flex;
     align-items: flex-start;
     gap: 16px;
+    text-align: left;
   }
 
   .dor-list li::before {
@@ -443,6 +442,7 @@
     display: flex;
     gap: 16px;
     align-items: flex-start;
+    text-align: left;
   }
 
   .checklist li .check {
@@ -637,12 +637,17 @@
 <!-- HERO -->
 <section class="hero">
   <span class="hero-label">Rafaela Pizzi · Decisão e Gestão Feminina</span>
-  <h1>Mapa do Temperamento<br><em>no Negócio</em></h1>
+  <h1>Você não precisa se adaptar<br>ao padrão para fazer<br><em>seu negócio crescer.</em></h1>
   <div class="hero-line"></div>
-  <p class="hero-sub">Descubra como você decide, onde você trava e quais estratégias geram resultado para o seu perfil. Não para o padrão.</p>
+  <p class="hero-sub">O Mapa do Temperamento no Negócio revela como você decide, seu padrão de autossabotagem e quais estratégias você realmente consegue sustentar. Com aplicação direta em cada área do seu negócio.</p>
   <div class="hero-cta">
     <a href="#formulario" class="btn btn-cream">Quero meu Mapa</a>
   </div>
+</section>
+
+<!-- FRASE BANNER -->
+<section style="background: var(--terracota); padding: 28px 24px; text-align: center;">
+  <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2.5vw, 20px); color: var(--cream); font-style: italic; max-width: 600px; margin: 0 auto; line-height: 1.6;">Leveza não vem de fazer menos. Vem de parar de sustentar estratégias desalinhadas.</p>
 </section>
 
 <!-- DOR -->
@@ -656,7 +661,6 @@
       <em>E mesmo assim os resultados do seu negócio não consolidam.</em>
     </p>
 
-    <div class="divider reveal"></div>
 
     <ul class="dor-list reveal">
       <li>Já mudou de posicionamento mais de uma vez, começou empolgada, mas mudou de direção novamente antes de consolidar</li>
@@ -668,8 +672,8 @@
 
     <p class="dor-answer reveal" style="text-align: center; font-size: clamp(22px, 3.5vw, 34px);">
       "O que está errado comigo?"<br><br>
-      Nada.<br><br>
-      O que está acontecendo é que você está tentando crescer seguindo um padrão que não foi feito para quem você é.
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 80px); font-weight: 300; font-style: italic; color: var(--terracota); display: block; line-height: 1; margin: 8px 0;">Nada.</span><br>
+      Você não está falhando no digital.<br>Está tentando crescer através de um modelo que exige uma versão sua que não se sustenta.
     </p>
   </div>
 </section>
@@ -680,7 +684,6 @@
     <span class="section-label reveal" style="color: var(--terracota-lt)">O problema real</span>
     <h2 class="reveal">O padrão te ensina<br>a se adaptar.</h2>
 
-    <div class="divider reveal"></div>
 
     <p class="reveal">O digital pressiona para que você funcione de um jeito padronizado.<br>Poste igual.<br>Apareça igual.<br>Decida igual.</p>
 
@@ -701,13 +704,30 @@
 <section class="solucao">
   <div class="container">
     <span class="section-label reveal">A virada</span>
-    <h2 class="reveal">Quando você entende<br>como você funciona,<br><em style="font-style:italic; color: var(--terracota-dk)">tudo muda.</em></h2>
+    <h2 class="reveal">Quando você para de decidir<br>para caber,<br><em style="font-style:italic; color: var(--terracota-dk)">seu negócio muda.</em></h2>
 
-    <div class="divider reveal"></div>
 
-    <p class="reveal">Não porque você encontrou a fórmula certa.</p>
-    <p class="reveal">Mas porque parou de se encaixar na fórmula errada.</p>
-    <p class="reveal">O Mapa do Temperamento no Negócio é definido a partir do seu temperamento para revelar exatamente como você decide, onde está o seu padrão de autossabotagem e quais estratégias geram resultado de acordo com a sua natureza. Com aplicação direta em cada área do seu negócio.</p>
+    <p class="reveal">Porque você para de:</p>
+
+    <ul class="dor-list reveal" style="margin: 16px 0 24px;">
+      <li>gastar energia sustentando estratégias desalinhadas</li>
+      <li>mudar de direção toda vez que a dúvida aparece</li>
+      <li>produzir conteúdo a partir da adaptação do padrão</li>
+      <li>criar rotinas e estratégias de produtividade que não respeitam o seu ritmo</li>
+    </ul>
+
+    <p class="reveal" style="font-weight: 500; color: var(--dark); margin-bottom: 8px;">E começa a:</p>
+
+    <ul class="checklist reveal" style="margin: 0 0 24px;">
+      <li><span class="check">✔</span> decidir com mais clareza</li>
+      <li><span class="check">✔</span> sustentar posicionamento</li>
+      <li><span class="check">✔</span> construir consistência real</li>
+      <li><span class="check">✔</span> comunicar com mais verdade</li>
+      <li><span class="check">✔</span> atrair clientes mais alinhados</li>
+      <li><span class="check">✔</span> crescer sem se forçar o tempo todo</li>
+    </ul>
+
+    <p class="reveal" style="font-style: italic; color: var(--terracota-dk); font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 2.5vw, 22px);">Quando a estratégia respeita sua natureza, seu negócio ganha estabilidade.</p>
   </div>
 </section>
 
@@ -735,14 +755,14 @@
       <div class="entregavel-item">
         <span class="entregavel-num">03</span>
         <div class="entregavel-content">
-          <h4>Sintomas de desalinhamento</h4>
-          <p>Como o desalinhamento aparece no seu dia a dia. Para você reconhecer quando está operando fora do seu eixo.</p>
+          <h4>Como você percebe que começou a se afastar de si no negócio</h4>
+          <p>Os sinais que aparecem no dia a dia quando você está operando fora do seu eixo.</p>
         </div>
       </div>
       <div class="entregavel-item">
         <span class="entregavel-num">04</span>
         <div class="entregavel-content">
-          <h4>Potências e sombras por área</h4>
+          <h4>Potências e sombras por área do negócio</h4>
           <p>Tomada de decisão, produtividade e rotina, posicionamento e conteúdo, vendas e relacionamento com clientes.</p>
         </div>
       </div>
@@ -757,7 +777,7 @@
         <span class="entregavel-num">06</span>
         <div class="entregavel-content">
           <h4>Sua chave de destrave e frase-âncora</h4>
-          <p>O que muda quando você para de lutar contra sua natureza. E uma frase para sustentar decisões nos momentos de dúvida.</p>
+          <p>O que muda quando você para de construir o negócio contra si. E uma frase para sustentar decisões nos momentos de dúvida.</p>
         </div>
       </div>
     </div>
@@ -802,7 +822,6 @@
     <span class="section-label reveal">Para quem é</span>
     <h2 class="reveal">Para a mulher que já<br>sabe trabalhar,<br><em style="font-style:italic; color: var(--terracota)">não sustenta.</em></h2>
 
-    <div class="divider reveal"></div>
 
     <ul class="checklist reveal">
       <li><span class="check">✔</span> Já está no digital há pelo menos 1 ano</li>
@@ -812,12 +831,12 @@
       <li><span class="check">✔</span> Está pronta para olhar com honestidade para o seu próprio padrão</li>
     </ul>
 
-    <div class="nao-para reveal">
+    <div class="nao-para reveal" style="text-align: left;">
       <h4>Não é para você se</h4>
       <ul>
-        <li>Ainda está buscando uma estratégia mágica de marketing, vendas e produtividade</li>
-        <li>Procura fórmulas prontas e padronizadas para aplicar</li>
-        <li>Não está disposta a olhar com profundidade para a sua essência</li>
+        <li>Acredita que o que falta é a estratégia certa de marketing, vendas ou conteúdo</li>
+        <li>Busca fórmulas prontas para replicar</li>
+        <li>Não está disposta a olhar com honestidade para o seu próprio padrão</li>
       </ul>
     </div>
   </div>
@@ -830,7 +849,7 @@
     <h2 class="reveal" style="color: var(--white);">Mapa do Temperamento<br>no Negócio</h2>
 
     <span class="preco reveal">R$ 800,00</span>
-    <p class="preco-detalhe reveal">condição de lançamento · vagas limitadas</p>
+    <p class="preco-detalhe reveal">vagas limitadas para acompanhamento individual</p>
 
     <div class="investimento-detalhe reveal">
       <div class="inv-item">
@@ -849,7 +868,7 @@
 
     <div class="reveal">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLScRK4itt8n2Z7BByDVqNkWI3o38r5mZJiiVAO1N_EVTh3pxyw/viewform?usp=dialog" class="btn btn-cream" style="font-size: 12px; padding: 18px 48px;">
-        Preencher o formulário de aplicação
+        Quero meu Mapa personalizado
       </a>
       <p style="font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 20px; letter-spacing: 0.5px;">
         Após o preenchimento, entrarei em contato em até 48 horas para agendar a sua sessão.
@@ -861,13 +880,12 @@
 <!-- MANIFESTO -->
 <section class="manifesto">
   <div class="container">
-    <div class="divider divider-center reveal"></div>
     <p class="manifesto-text reveal">
-      O padrão te ensina a se adaptar.<br><br>
-      <em>O Mapa te ensina o que você consegue sustentar.</em>
+      Você não precisa mais construir o negócio contra si.<br><br>
+      <em>Seu temperamento não é um obstáculo para crescer.</em><br><br>
+      É o critério que mostra como você sustenta crescimento.
     </p>
     <p class="manifesto-author reveal">Rafaela Pizzi · Decisão e Gestão Feminina no Digital</p>
-    <div class="divider divider-center reveal"></div>
   </div>
 </section>
 
