@@ -4,983 +4,495 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mapa do Temperamento no Negócio · Rafaela Pizzi</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --terracota: #B87355;
-    --terracota-dk: #8B5E42;
-    --terracota-lt: #C9956E;
-    --cream: #FAF7F2;
-    --cream-dk: #F0E8DF;
-    --dark: #2C2A27;
-    --medium: #6B6560;
-    --light: #E8E0D5;
-    --white: #FFFFFF;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--cream);
-    color: var(--dark);
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 17px;
-    line-height: 1.8;
-    overflow-x: hidden;
-  }
-
-  /* ── TYPOGRAPHY ── */
-  .serif { font-family: 'Cormorant Garamond', serif; }
-
-  h1, h2, h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes lineGrow {
-    from { width: 0; }
-    to   { width: 100%; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    background: var(--terracota-dk);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 70% 30%, rgba(184,115,85,0.25) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  .hero-label {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--terracota-lt);
-    margin-bottom: 32px;
-    animation: fadeIn 1s ease 0.2s both;
-  }
-
-  .hero h1 {
-    font-size: clamp(28px, 4.5vw, 52px);
-    color: var(--white);
-    text-align: center;
-    max-width: 680px;
-    margin-bottom: 16px;
-    animation: fadeUp 1s ease 0.4s both;
-  }
-
-  .hero h1 em {
-    font-style: italic;
-    color: var(--cream-dk);
-  }
-
-  .hero-line {
-    width: 48px;
-    height: 1px;
-    background: var(--terracota-lt);
-    margin: 32px auto;
-    animation: fadeIn 1s ease 0.8s both;
-  }
-
-  .hero-sub {
-    font-size: clamp(18px, 2.5vw, 22px);
-    color: var(--cream-dk);
-    text-align: center;
-    max-width: 560px;
-    line-height: 1.7;
-    font-weight: 300;
-    animation: fadeUp 1s ease 0.9s both;
-  }
-
-  .hero-cta {
-    margin-top: 48px;
-    animation: fadeUp 1s ease 1.1s both;
-  }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-block;
-    padding: 16px 40px;
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-  }
-
-  .btn-cream {
-    background: var(--cream);
-    color: var(--terracota-dk);
-  }
-  .btn-cream:hover {
-    background: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-  }
-
-  .btn-terracota {
-    background: var(--terracota);
-    color: var(--white);
-  }
-  .btn-terracota:hover {
-    background: var(--terracota-dk);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(139,94,66,0.35);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--terracota);
-    border: 1px solid var(--terracota);
-  }
-  .btn-outline:hover {
-    background: var(--terracota);
-    color: var(--white);
-  }
-
-  /* ── SECTIONS ── */
-  section {
-    padding: 100px 24px;
-  }
-
-  .container {
-    max-width: 720px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .container-wide {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  /* ── SECTION LABEL ── */
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--terracota);
-    font-weight: 500;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    display: none;
-  }
-
-  .divider-center {
-    margin: 32px auto;
-  }
-
-  /* ── DOR SECTION ── */
-  .dor {
-    background: var(--cream);
-  }
-
-  .dor-intro {
-    font-size: clamp(24px, 4vw, 38px);
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    line-height: 1.3;
-    color: var(--dark);
-    margin-bottom: 40px;
-  }
-
-  .dor-intro em {
-    font-style: italic;
-    color: var(--terracota);
-  }
-
-  .dor-list {
-    list-style: none;
-    margin: 32px 0;
-  }
-
-  .dor-list li {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--light);
-    font-size: 17px;
-    color: var(--medium);
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    text-align: left;
-  }
-
-  .dor-list li::before {
-    content: '—';
-    color: var(--terracota);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .dor-answer {
-    font-size: clamp(18px, 2.5vw, 24px);
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    color: var(--terracota-dk);
-    margin-top: 40px;
-    line-height: 1.5;
-  }
-
-  /* ── PROBLEMA SECTION ── */
-  .problema {
-    background: var(--dark);
-    color: var(--cream);
-  }
-
-  .problema h2 {
-    font-size: clamp(28px, 4.5vw, 48px);
-    color: var(--white);
-    margin-bottom: 32px;
-  }
-
-  .problema p {
-    font-size: 18px;
-    color: var(--cream-dk);
-    margin-bottom: 20px;
-    line-height: 1.85;
-  }
-
-  .problema .highlight {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(20px, 3vw, 28px);
-    font-style: italic;
-    color: var(--terracota-lt);
-    margin: 40px 0;
-    line-height: 1.4;
-    padding-left: 24px;
-    border-left: 2px solid var(--terracota);
-  }
-
-  /* ── SOLUÇÃO SECTION ── */
-  .solucao {
-    background: var(--cream-dk);
-  }
-
-  .solucao h2 {
-    font-size: clamp(28px, 4.5vw, 52px);
-    margin-bottom: 24px;
-  }
-
-  .solucao p {
-    font-size: 18px;
-    color: var(--medium);
-    margin-bottom: 20px;
-    line-height: 1.85;
-  }
-
-  /* ── PRODUTO SECTION ── */
-  .produto {
-    background: var(--cream);
-  }
-
-  .produto h2 {
-    font-size: clamp(28px, 4.5vw, 52px);
-    margin-bottom: 40px;
-  }
-
-  .entregaveis {
-    display: grid;
-    gap: 1px;
-    background: var(--light);
-    border: 1px solid var(--light);
-    margin: 40px 0;
-  }
-
-  .entregavel-item {
-    background: var(--cream);
-    padding: 24px 28px;
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    transition: background 0.2s ease;
-  }
-
-  .entregavel-item:hover {
-    background: var(--cream-dk);
-  }
-
-  .entregavel-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--terracota-lt);
-    line-height: 1;
-    flex-shrink: 0;
-    width: 36px;
-  }
-
-  .entregavel-content h4 {
-    font-family: 'Jost', sans-serif;
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--dark);
-    margin-bottom: 6px;
-  }
-
-  .entregavel-content p {
-    font-size: 16px;
-    color: var(--medium);
-    line-height: 1.65;
-  }
-
-  /* ── COMO FUNCIONA ── */
-  .como-funciona {
-    background: var(--terracota-dk);
-    color: var(--white);
-  }
-
-  .como-funciona h2 {
-    color: var(--white);
-    font-size: clamp(28px, 4.5vw, 48px);
-    margin-bottom: 56px;
-  }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 40px;
-  }
-
-  .step {
-    position: relative;
-  }
-
-  .step-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.15);
-    line-height: 1;
-    margin-bottom: -16px;
-  }
-
-  .step h4 {
-    font-family: 'Jost', sans-serif;
-    font-weight: 500;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--terracota-lt);
-    margin-bottom: 12px;
-  }
-
-  .step p {
-    font-size: 16px;
-    color: var(--cream-dk);
-    line-height: 1.75;
-  }
-
-  /* ── PARA QUEM ── */
-  .para-quem {
-    background: var(--cream);
-  }
-
-  .para-quem h2 {
-    font-size: clamp(28px, 4.5vw, 52px);
-    margin-bottom: 40px;
-  }
-
-  .checklist {
-    list-style: none;
-    margin: 24px 0;
-  }
-
-  .checklist li {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--light);
-    font-size: 17px;
-    color: var(--dark);
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    text-align: left;
-  }
-
-  .checklist li .check {
-    color: var(--terracota);
-    flex-shrink: 0;
-    font-size: 16px;
-  }
-
-  .nao-para {
-    margin-top: 48px;
-    padding: 32px;
-    border: 1px solid var(--light);
-    background: var(--cream-dk);
-  }
-
-  .nao-para h4 {
-    font-family: 'Jost', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--medium);
-    margin-bottom: 20px;
-  }
-
-  .nao-para ul {
-    list-style: none;
-  }
-
-  .nao-para ul li {
-    font-size: 16px;
-    color: var(--medium);
-    padding: 8px 0;
-    display: flex;
-    gap: 12px;
-  }
-
-  .nao-para ul li::before {
-    content: '✗';
-    color: var(--medium);
-    opacity: 0.5;
-  }
-
-  /* ── INVESTIMENTO ── */
-  .investimento {
-    background: var(--dark);
-    text-align: center;
-    padding: 120px 24px;
-  }
-
-  .investimento .section-label {
-    color: var(--terracota-lt);
-    display: block;
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
-  .investimento h2 {
-    font-size: clamp(32px, 5vw, 58px);
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-
-  .preco {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(56px, 10vw, 96px);
-    font-weight: 300;
-    color: var(--cream);
-    line-height: 1;
-    margin: 32px 0 8px;
-    display: block;
-  }
-
-  .preco-detalhe {
-    font-size: 13px;
-    color: var(--terracota-lt);
-    letter-spacing: 1px;
-    margin-bottom: 48px;
-  }
-
-  .investimento-detalhe {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 40px 0 56px;
-    flex-wrap: wrap;
-  }
-
-  .inv-item {
-    text-align: center;
-  }
-
-  .inv-item span {
-    display: block;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--terracota-lt);
-    margin-bottom: 8px;
-  }
-
-  .inv-item p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    color: var(--cream-dk);
-  }
-
-  /* ── MANIFESTO ── */
-  .manifesto {
-    background: var(--cream);
-    text-align: center;
-    padding: 100px 24px;
-  }
-
-  .manifesto-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(22px, 3.5vw, 36px);
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--dark);
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  .manifesto-text em {
-    font-style: italic;
-    color: var(--terracota);
-  }
-
-  .manifesto-author {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--medium);
-    margin-top: 40px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--terracota-dk);
-    padding: 48px 24px;
-    text-align: center;
-  }
-
-  footer p {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 1px;
-  }
-
-  footer .footer-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    color: var(--cream);
-    margin-bottom: 12px;
-  }
-
-  /* ── STICKY CTA ── */
-  .sticky-cta {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-    white-space: nowrap;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  }
-
-  .sticky-cta.show {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 640px) {
-    section { padding: 64px 20px; }
-    .hero { padding: 72px 20px; min-height: auto; }
-    .hero h1 { font-size: clamp(26px, 7.5vw, 36px); }
-    .hero-sub { font-size: 16px; }
-    .hero-label { font-size: 10px; }
-    h2 { font-size: clamp(24px, 6vw, 34px) !important; }
-    .steps { grid-template-columns: 1fr; gap: 32px; }
-    .investimento-detalhe { gap: 24px; }
-    .sticky-cta { bottom: 16px; left: 16px; right: 16px; transform: none; text-align: center; font-size: 11px; padding: 14px 20px; }
-    .entregavel-item { padding: 18px 16px; }
-    .entregavel-num { font-size: 24px; }
-    .dor-intro { font-size: clamp(20px, 5.5vw, 28px); }
-    .manifesto-text { font-size: clamp(18px, 5vw, 26px); }
-    .preco { font-size: clamp(48px, 12vw, 72px); }
-    .nao-para { padding: 24px 20px; }
-    .btn { padding: 14px 28px; font-size: 11px; }
-  }
+:root{
+  --T:#B87355; --TK:#8B5E42; --TL:#C9956E;
+  --CR:#FAF7F2; --CD:#F0E8DF; --DK:#2C2A27;
+  --MD:#6B6560; --LT:#E8E0D5; --WH:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--CR);color:var(--DK);font-family:'Jost',sans-serif;
+  font-weight:300;font-size:17px;line-height:1.9;overflow-x:hidden;text-align:center;}
+
+/* REVEAL */
+.r{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+.r.on{opacity:1;transform:translateY(0);}
+
+/* STICKY */
+.sk{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;
+  opacity:0;pointer-events:none;transition:opacity .4s;white-space:nowrap;
+  box-shadow:0 8px 32px rgba(0,0,0,.2);}
+.sk.show{opacity:1;pointer-events:all;}
+
+/* BUTTONS */
+.btn{display:inline-block;padding:16px 40px;font-family:'Jost',sans-serif;
+  font-weight:400;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
+  text-decoration:none;transition:all .3s;border:none;cursor:pointer;}
+.btn-cr{background:var(--CR);color:var(--TK);}
+.btn-cr:hover{background:var(--WH);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.12);}
+.btn-t{background:var(--T);color:var(--WH);}
+.btn-t:hover{background:var(--TK);transform:translateY(-2px);}
+
+/* LAYOUT */
+.s{padding:80px 24px;}
+.s-dk{padding:80px 24px;background:var(--CD);}
+.s-dark{padding:80px 24px;background:var(--DK);}
+.w{max-width:640px;margin:0 auto;}
+
+/* HERO */
+.hero{background:var(--TK);padding:100px 24px 80px;}
+.hl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--TL);
+  display:block;margin-bottom:40px;animation:fIn .8s ease both;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,58px);
+  font-weight:400;color:var(--WH);line-height:1.25;max-width:700px;margin:0 auto;
+  animation:fUp .9s .2s both;}
+.hero h1 em{font-style:italic;color:var(--CD);}
+@keyframes fUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fIn{from{opacity:0;}to{opacity:1;}}
+
+/* TYPE */
+p{margin-bottom:20px;font-size:17px;line-height:1.9;color:var(--DK);font-weight:300;}
+.serif{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);line-height:1.5;font-weight:400;margin-bottom:24px;}
+.serif em{font-style:italic;color:var(--TK);}
+.serif-w{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);line-height:1.5;font-weight:400;color:var(--WH);margin-bottom:24px;}
+.serif-w em{font-style:italic;color:var(--TL);}
+
+/* LABELS */
+.lbl{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--T);display:block;margin-bottom:14px;}
+.lbl-lt{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--TL);display:block;margin-bottom:14px;}
+
+/* SECTION HEADINGS */
+.sh{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4.5vw,48px);
+  font-weight:700;color:var(--DK);line-height:1.2;margin-bottom:28px;}
+.sh-w{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4.5vw,48px);
+  font-weight:700;color:var(--WH);line-height:1.2;margin-bottom:28px;}
+
+/* VIRADA TITLE */
+.vt{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5.5vw,60px);
+  font-weight:700;color:var(--DK);line-height:1.15;margin:48px 0 36px;}
+
+/* PERGUNTAS */
+.pergs{margin:32px 0;}
+.perg{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.8vw,26px);
+  font-style:italic;color:var(--DK);line-height:1.5;
+  padding:18px 24px;margin-bottom:2px;background:var(--CD);
+  border-left:3px solid var(--T);}
+
+/* INCAPAZ */
+.incapaz{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,40px);
+  font-weight:700;color:var(--TK);line-height:1.3;margin:28px 0;}
+
+/* TÓPICO LIST (como cansada) */
+.tlist{list-style:none;margin:24px 0;text-align:left;}
+.tlist li{padding:16px 20px;font-size:17px;color:var(--DK);line-height:1.7;
+  display:flex;gap:14px;align-items:flex-start;margin-bottom:2px;}
+.tlist li:nth-child(odd){background:var(--CD);}
+.tlist li:nth-child(even){background:var(--LT);}
+.tlist li .dot{width:6px;height:6px;border-radius:50%;background:var(--T);
+  flex-shrink:0;margin-top:9px;}
+
+/* CAIXA MARROM */
+.box-brown{background:var(--TK);padding:40px 36px;margin:36px 0;}
+.box-brown p{font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2.8vw,26px);
+  color:var(--WH);line-height:1.55;margin:0;font-weight:400;}
+
+/* CAIXA TERRACOTA */
+.box-terra{background:var(--T);padding:40px 36px;margin:36px 0;}
+.box-terra p{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);
+  color:var(--WH);line-height:1.5;margin:0;font-weight:500;}
+
+/* RESULTADO */
+.resultado-box{background:var(--T);padding:36px 32px;margin:32px 0;}
+.resultado-box p{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);
+  color:var(--WH);line-height:1.45;margin:0;font-weight:500;}
+
+/* TALVEZ */
+.talvez{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,52px);
+  font-weight:700;color:var(--TK);line-height:1.2;margin:48px 0 28px;}
+
+/* CICLO */
+.ciclo-wrap{margin:40px auto;max-width:400px;}
+
+/* BULLETS centrados */
+.cbullets{list-style:none;margin:24px 0;}
+.cbullets li{padding:13px 16px;border-bottom:1px solid var(--LT);
+  font-size:16px;color:var(--DK);display:flex;gap:12px;
+  align-items:flex-start;justify-content:center;}
+.cbullets li .ck{color:var(--T);flex-shrink:0;}
+.cbullets.w li{border-bottom-color:rgba(255,255,255,.1);color:var(--CD);justify-content:center;}
+.cbullets.w li .ck{color:var(--TL);}
+
+/* BULLETS esquerda */
+.lbullets{list-style:none;margin:24px 0;text-align:left;}
+.lbullets li{padding:13px 0;border-bottom:1px solid var(--LT);
+  font-size:16px;color:var(--DK);display:flex;gap:14px;align-items:flex-start;}
+.lbullets li .ck{color:var(--T);flex-shrink:0;}
+
+/* RAIZ */
+.raiz{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);
+  font-weight:600;color:var(--TK);font-style:italic;margin:28px 0;line-height:1.5;}
+
+/* PRECO */
+.preco{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,9vw,80px);
+  font-weight:300;color:var(--CR);line-height:1;display:block;margin:16px 0 6px;}
+.preco-sub{font-size:12px;color:var(--TL);letter-spacing:1px;margin-bottom:32px;display:block;}
+.custo-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,4vw,42px);
+  font-weight:700;color:var(--WH);line-height:1.3;margin:36px 0 28px;display:block;}
+.encurtar{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4.5vw,44px);
+  font-weight:700;color:var(--TL);line-height:1.3;margin:40px 0 0;display:block;}
+
+/* SOBRE */
+.sobre-h{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,42px);
+  font-weight:500;color:var(--DK);margin-bottom:28px;}
+
+/* FAQ */
+.faq{padding:24px 28px;margin-bottom:2px;border-left:3px solid var(--T);text-align:left;}
+.faq:nth-child(odd){background:var(--CD);}
+.faq:nth-child(even){background:var(--CR);}
+.faq h4{font-family:'Jost',sans-serif;font-weight:500;font-size:15px;color:var(--DK);margin-bottom:10px;}
+.faq p{font-size:15px;color:var(--MD);line-height:1.75;margin:0;}
+
+/* MANIFESTO */
+.manifesto{background:var(--CR);padding:96px 24px;}
+.mani-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,52px);
+  font-weight:700;color:var(--DK);line-height:1.2;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;}
+.mani-body{font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.5vw,24px);
+  color:var(--MD);line-height:1.75;max-width:520px;margin:0 auto;}
+.mani-body em{font-style:italic;color:var(--T);}
+
+/* FINAL */
+footer{background:var(--TK);padding:40px 24px;}
+.fbrand{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--CR);display:block;margin-bottom:8px;}
+.fsub{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px;}
+
+@media(max-width:640px){
+  .hero{padding:72px 20px 60px;}
+  .sk{bottom:16px;left:16px;right:16px;transform:none;text-align:center;font-size:11px;padding:14px 20px;}
+  .btn{padding:14px 22px;font-size:11px;}
+  .box-brown,.box-terra,.resultado-box{padding:28px 20px;}
+}
 </style>
 </head>
 <body>
 
-<!-- STICKY CTA -->
-<a href="https://form.respondi.app/CzU888aK" target="_blank" class="btn btn-terracota sticky-cta" id="stickyCta">
-  Quero meu Mapa
-</a>
+<a href="https://form.respondi.app/CzU888aK" target="_blank" class="btn btn-t sk" id="stk">Quero meu Mapa</a>
 
 <!-- HERO -->
 <section class="hero">
-  <span class="hero-label">Rafaela Pizzi · Decisão e Gestão Feminina</span>
-  <h1>Você não precisa se adaptar<br>ao padrão para fazer<br><em>seu negócio crescer.</em></h1>
-  <div class="hero-line"></div>
-  <p class="hero-sub">O Mapa do Temperamento no Negócio revela como você decide, seu padrão de autossabotagem e quais estratégias você realmente consegue sustentar. Com aplicação direta em cada área do seu negócio.</p>
-  <div class="hero-cta">
-    <a href="https://form.respondi.app/CzU888aK" target="_blank" class="btn btn-cream">Quero meu Mapa</a>
-  </div>
+  <span class="hl">Rafaela Pizzi · Decisão e Gestão Feminina</span>
+  <h1>Você sente que está sempre<br><em>recomeçando no seu negócio?</em></h1>
 </section>
 
-<!-- FRASE BANNER -->
-<section style="background: var(--terracota); padding: 28px 24px; text-align: center;">
-  <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 2.5vw, 20px); color: var(--cream); font-style: italic; max-width: 600px; margin: 0 auto; line-height: 1.6;">Leveza não vem de fazer menos. Vem de parar de sustentar estratégias desalinhadas.</p>
+<!-- ABERTURA NARRATIVA -->
+<section class="s">
+<div class="w">
+
+  <p class="r">Você muda o posicionamento. Muda a estratégia. Muda o jeito de produzir conteúdo. Compra um curso novo. Organiza tudo de novo. E por algum tempo parece que agora vai.</p>
+
+  <p class="r">Mas depois a dúvida volta. Você começa a questionar suas decisões, se pergunta se está indo pelo caminho certo, compara o próprio negócio com o de outras mulheres. E volta a procurar uma resposta que parece nunca chegar.</p>
+
+  <p class="r" style="margin-top:28px;">Talvez você já tenha pensado:</p>
+
+  <div class="pergs r">
+    <div class="perg">"Por que eu começo as coisas e não consigo sustentar?"</div>
+    <div class="perg">"Por que eu mudo tanto de direção?"</div>
+    <div class="perg">"Por que eu me sinto travada mesmo sabendo o que fazer?"</div>
+    <div class="perg">"Por que eu estou sempre cansada?"</div>
+  </div>
+
+  <p class="r">Se essas perguntas são familiares para você, saiba de uma coisa:</p>
+  <p class="incapaz r">Isso não acontece porque você é incapaz.</p>
+  <p class="r">E provavelmente também não acontece por falta de estratégia.</p>
+
+  <h2 class="vt r">O problema pode estar<br>em outro lugar.</h2>
+
+  <p class="r">A maioria das mulheres tenta resolver esse ciclo ajustando o que está visível. O conteúdo. O posicionamento. A oferta. O funil. A rotina.</p>
+
+  <p class="r">Mas mesmo quando alguma dessas coisas melhora, a sensação continua.</p>
+
+  <div class="box-brown r">
+    <p>Porque o problema não está apenas no que você faz. Está na forma como você toma decisões. Ou melhor: na dificuldade de confiar nelas tempo suficiente para sustentá-las.</p>
+  </div>
+
+</div>
 </section>
 
-<!-- DOR -->
-<section class="dor">
-  <div class="container">
-    <span class="section-label reveal" style="text-align:center; display:block;">O que está acontecendo</span>
-    <p class="dor-intro reveal" style="text-align:center;">
-      Você se esforça.<br>
-      Planeja.<br>
-      Executa.<br>
-      <em>E mesmo assim os resultados do seu negócio não consolidam.</em>
-    </p>
+<!-- CANSACO -->
+<section class="s-dk">
+<div class="w">
 
+  <h2 class="sh r">É por isso que você sente<br>que está sempre cansada.</h2>
 
-    <ul class="dor-list reveal">
-      <li>Já mudou de posicionamento mais de uma vez, começou empolgada, mas mudou de direção novamente antes de consolidar</li>
-      <li>Tentou formatos e estratégias de conteúdo que funcionam para outras mulheres, mas não se reconhece neles e não consegue sustentar</li>
-      <li>Criou planejamentos e rotinas que não duraram uma semana</li>
-      <li>Tem meses de faturamento bons seguidos de meses de queda sem entender por quê</li>
-      <li>Sente que se esforça muito e consolida poucos resultados</li>
-    </ul>
+  <p class="r">Existe um tipo de cansaço que não vem do excesso de trabalho.</p>
+  <p class="r">Vem do excesso de adaptação.</p>
 
-    <p class="dor-answer reveal" style="text-align: center; font-size: clamp(22px, 3.5vw, 34px);">
-      "O que está errado comigo?"<br><br>
-      <span style="font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 80px); font-weight: 300; font-style: italic; color: var(--terracota); display: block; line-height: 1; margin: 8px 0;">Nada.</span><br>
-      Você não está falhando no digital.<br>Está tentando crescer através de um modelo que exige uma versão sua que não se sustenta.
-    </p>
+  <p class="r" style="margin-top:8px;">Você tenta seguir um ritmo que não combina com você, produzir de um jeito que não parece natural, vender seguindo um passo a passo engessado e manter estratégias de produtividade que funcionam para outras mulheres.</p>
 
-    <div style="margin-top: 48px; padding: 36px 32px; background: var(--cream-dk); border-left: 3px solid var(--terracota); text-align: left;" class="reveal">
-      <p style="font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--terracota); font-weight: 500; margin-bottom: 24px; font-family: 'Jost', sans-serif;">E enquanto isso não muda</p>
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
-        <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; display: flex; gap: 12px; align-items: flex-start;"><span style="color: var(--terracota); flex-shrink: 0; font-size: 16px;">✔</span> Você continua testando formatos que funcionam para outras mulheres</p>
-        <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; display: flex; gap: 12px; align-items: flex-start;"><span style="color: var(--terracota); flex-shrink: 0; font-size: 16px;">✔</span> Produzindo conteúdo com consistência, mas sem retorno proporcional</p>
-        <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; display: flex; gap: 12px; align-items: flex-start;"><span style="color: var(--terracota); flex-shrink: 0; font-size: 16px;">✔</span> Ajustando a oferta</p>
-        <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; display: flex; gap: 12px; align-items: flex-start;"><span style="color: var(--terracota); flex-shrink: 0; font-size: 16px;">✔</span> Mudando o posicionamento</p>
-        <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; display: flex; gap: 12px; align-items: flex-start;"><span style="color: var(--terracota); flex-shrink: 0; font-size: 16px;">✔</span> E mesmo assim as vendas continuam instáveis</p>
-      </div>
-      <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3vw, 26px); color: var(--terracota-dk); font-style: italic; line-height: 1.6; text-align: center; padding-top: 24px; border-top: 1px solid var(--light);">E não é só o dinheiro que deixa de entrar.<br>É o tempo, a energia e a confiança no próprio negócio<br>que vão sendo drenados.</p>
-    </div>
+  <p class="r">E tudo isso exige energia. Muita energia.</p>
+
+  <div class="resultado-box r">
+    <p>O resultado é que você passa a maior parte do tempo tentando funcionar.<br>E cada vez menos tempo construindo.</p>
   </div>
+
+  <p class="r">Você trabalha, mas sente que não avança.</p>
+  <p class="r">Se esforça, mas não consolida os resultados.</p>
+  <p class="r">Produz, mas não consegue manter consistência.</p>
+  <p class="r">E começa a acreditar que o problema está na sua disciplina, constância ou falta de capacidade.</p>
+
+</div>
 </section>
 
-<!-- PROBLEMA -->
-<section class="problema">
-  <div class="container">
-    <span class="section-label reveal" style="color: var(--terracota-lt)">O problema real</span>
-    <h2 class="reveal">O padrão te ensina<br>a se adaptar.</h2>
+<!-- TALVEZ -->
+<section class="s">
+<div class="w">
 
+  <h2 class="talvez r">Mas talvez o problema<br>não seja você.</h2>
 
-    <p class="reveal">O digital pressiona para que você funcione de um jeito padronizado.<br>Poste igual.<br>Apareça igual.<br>Decida igual.</p>
+  <p class="r">Talvez o problema seja que você está tentando sustentar um negócio a partir de decisões que não fazem sentido para a forma como você funciona.</p>
 
-    <p class="reveal">E quando você tenta e não sustenta, a culpa recai sobre você.<br>Falta disciplina.<br>Falta consistência.<br>Falta força de vontade.</p>
+  <p class="r" style="margin-top:24px;">Porque quando você não entende seu padrão de decisão, acaba repetindo o mesmo ciclo:</p>
 
-    <p class="reveal">Mas o problema não é falta de disciplina, de estratégia nem força de vontade.</p>
+  <!-- CICLO SVG -->
+  <div class="ciclo-wrap r">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;">
+      <defs>
+        <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L0,6 L9,3 z" fill="#B87355"/>
+        </marker>
+      </defs>
 
-    <div class="highlight reveal">
-      É que você está decidindo para caber no padrão.<br>
-      Não a partir de quem você é.
-    </div>
+      <!-- circulo guia -->
+      <circle cx="200" cy="200" r="148" fill="none" stroke="#E8E0D5" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-    <p class="reveal">Cada mulher decide de uma forma.<br>Trava de uma forma.<br>Sustenta decisão de uma forma.<br><br>Quando você ignora isso, você gasta energia no lugar errado. E se culpa pelo que não sustenta.</p>
+      <!-- arco DECIDE para DUVIDA -->
+      <path d="M 230 57 A 148 148 0 0 1 340 273" fill="none" stroke="#C9956E" stroke-width="2" marker-end="url(#ar)"/>
+      <!-- arco DUVIDA para RECOMEÇA -->
+      <path d="M 328 300 A 148 148 0 0 1 62 273" fill="none" stroke="#C9956E" stroke-width="2" marker-end="url(#ar)"/>
+      <!-- arco RECOMEÇA para DECIDE -->
+      <path d="M 55 245 A 148 148 0 0 1 168 57" fill="none" stroke="#C9956E" stroke-width="2" marker-end="url(#ar)"/>
 
-    <p class="reveal" style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: clamp(18px, 2.5vw, 22px); color: var(--terracota-lt); margin-top: 24px;">Se você continuar ajustando só o conteúdo, só a oferta ou só a comunicação, sem corrigir a base, a tendência é continuar vivendo picos isolados seguidos de quedas.</p>
+      <!-- DECIDE - topo -->
+      <ellipse cx="200" cy="54" rx="58" ry="36" fill="#8B5E42"/>
+      <text x="200" y="47" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="18" fill="#FAF7F2" font-weight="600">decide</text>
+      <text x="200" y="66" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="#C9956E" font-style="italic">começa</text>
+
+      <!-- DUVIDA - direita -->
+      <ellipse cx="336" cy="286" rx="54" ry="34" fill="#8B5E42"/>
+      <text x="336" y="279" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="18" fill="#FAF7F2" font-weight="600">duvida</text>
+      <text x="336" y="298" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="#C9956E" font-style="italic">ajusta</text>
+
+      <!-- RECOMEÇA - esquerda -->
+      <ellipse cx="64" cy="286" rx="54" ry="34" fill="#8B5E42"/>
+      <text x="64" y="279" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="16" fill="#FAF7F2" font-weight="600">recomeça</text>
+      <text x="64" y="298" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="13" fill="#C9956E" font-style="italic">do zero</text>
+
+      <!-- centro -->
+      <circle cx="200" cy="204" r="66" fill="#8B5E42" opacity="0.12"/>
+      <circle cx="200" cy="204" r="62" fill="#FAF7F2" stroke="#C9956E" stroke-width="1.5"/>
+      <text x="200" y="196" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="16" fill="#2C2A27" font-style="italic">o ciclo</text>
+      <text x="200" y="216" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="16" fill="#2C2A27" font-style="italic">se repete</text>
+    </svg>
   </div>
-</section>
 
-<!-- SOLUÇÃO -->
-<section class="solucao">
-  <div class="container">
-    <span class="section-label reveal">A virada</span>
-    <h2 class="reveal">Quando você para de decidir<br>para caber,<br><em style="font-style:italic; color: var(--terracota-dk)">seu negócio muda.</em></h2>
-
-
-    <p class="reveal">Porque você para de:</p>
-
-    <ul class="dor-list reveal" style="margin: 16px 0 24px;">
-      <li>gastar energia sustentando estratégias desalinhadas</li>
-      <li>mudar de direção toda vez que a dúvida aparece</li>
-      <li>produzir conteúdo a partir da adaptação do padrão</li>
-      <li>criar rotinas e estratégias de produtividade que não respeitam o seu ritmo</li>
-    </ul>
-
-    <p class="reveal" style="font-weight: 500; color: var(--dark); margin-bottom: 8px;">E começa a:</p>
-
-    <ul class="checklist reveal" style="margin: 0 0 24px;">
-      <li><span class="check">✔</span> decidir com mais clareza</li>
-      <li><span class="check">✔</span> sustentar posicionamento</li>
-      <li><span class="check">✔</span> construir consistência real</li>
-      <li><span class="check">✔</span> comunicar com mais verdade</li>
-      <li><span class="check">✔</span> atrair clientes mais alinhados</li>
-      <li><span class="check">✔</span> crescer sem se forçar o tempo todo</li>
-    </ul>
-
-    <p class="reveal" style="font-style: italic; color: var(--terracota); font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 4vw, 38px); line-height: 1.4; margin-top: 16px;">Quando a estratégia respeita sua natureza, seu negócio ganha estabilidade.</p>
-  </div>
+</div>
 </section>
 
 <!-- PRODUTO -->
-<section class="produto">
-  <div class="container">
-    <span class="section-label reveal">O que você recebe</span>
-    <h2 class="reveal">Seu mapa completo<br>e personalizado.</h2>
+<section class="s-dark">
+<div class="w">
 
-    <div class="entregaveis reveal">
-      <div class="entregavel-item">
-        <span class="entregavel-num">01</span>
-        <div class="entregavel-content">
-          <h4>Sua natureza e motivação</h4>
-          <p>Como o seu temperamento se manifesta no negócio e o que realmente te move e o que te trava.</p>
-        </div>
-      </div>
-      <div class="entregavel-item">
-        <span class="entregavel-num">02</span>
-        <div class="entregavel-content">
-          <h4>Seu padrão de autossabotagem</h4>
-          <p>O ciclo que se repete no seu negócio. Com nome, estrutura e o que está por trás dele.</p>
-        </div>
-      </div>
-      <div class="entregavel-item">
-        <span class="entregavel-num">03</span>
-        <div class="entregavel-content">
-          <h4>Como você percebe que começou a se afastar de si no negócio</h4>
-          <p>Os sinais que aparecem no dia a dia quando você está operando fora do seu eixo.</p>
-        </div>
-      </div>
-      <div class="entregavel-item">
-        <span class="entregavel-num">04</span>
-        <div class="entregavel-content">
-          <h4>Potências e sombras por área do negócio</h4>
-          <p>Tomada de decisão, produtividade e rotina, posicionamento e conteúdo, vendas e relacionamento com clientes.</p>
-        </div>
-      </div>
-      <div class="entregavel-item">
-        <span class="entregavel-num">05</span>
-        <div class="entregavel-content">
-          <h4>Seu 80/20 no negócio</h4>
-          <p>Onde está o esforço que realmente move o seu crescimento. Específico para o seu temperamento.</p>
-        </div>
-      </div>
-      <div class="entregavel-item">
-        <span class="entregavel-num">06</span>
-        <div class="entregavel-content">
-          <h4>Sua chave de destrave e frase-âncora</h4>
-          <p>O que muda quando você para de construir o negócio contra si. E uma frase para sustentar decisões nos momentos de dúvida.</p>
-        </div>
-      </div>
-    </div>
-
-    <p class="reveal" style="font-size: 14px; color: var(--medium); text-align: center; margin-top: 16px;">
-      Entregue em <strong style="color: var(--dark)">PDF e Notion</strong> para você consultar sempre que precisar.
-    </p>
+  <div class="box-terra r">
+    <p>Foi para interromper esse ciclo que eu criei o Mapa do Temperamento no Negócio.</p>
   </div>
+
+  <p class="r" style="color:var(--CD);">O Mapa não é um teste de personalidade.</p>
+  <p class="r" style="color:var(--CD);">Não é um relatório genérico.</p>
+  <p class="r" style="color:var(--CD);">E não existe para colocar você dentro de uma caixa.</p>
+
+  <p class="r" style="color:var(--CD);margin-top:24px;">Ele existe para responder uma pergunta muito mais importante:</p>
+
+  <p class="r" style="margin:28px 0;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3.5vw,32px);line-height:1.45;color:var(--WH);font-weight:700;">Por que algumas decisões parecem naturais para você sustentar<br>e outras se tornam um peso?</p>
+
+  <p class="r" style="color:var(--CD);">Através de um diagnóstico personalizado, nós identificamos:</p>
+
+  <ul class="cbullets w r" style="margin-top:20px;">
+    <li><span class="ck">✔</span> como você toma decisões</li>
+    <li><span class="ck">✔</span> quais padrões mais te fazem perder energia</li>
+    <li><span class="ck">✔</span> onde você começa a duvidar de si mesma</li>
+    <li><span class="ck">✔</span> quais comportamentos alimentam seus ciclos de travamento</li>
+    <li><span class="ck">✔</span> quais caminhos fazem sentido para o seu jeito de funcionar</li>
+  </ul>
+
+  <p class="raiz r">Porque quando você entende isso, deixa de corrigir sintomas<br>e começa a corrigir a raiz do problema.</p>
+
+</div>
 </section>
 
-<!-- COMO FUNCIONA -->
-<section class="como-funciona">
-  <div class="container">
-    <span class="section-label reveal" style="color: var(--terracota-lt); text-align: center; display: block;">Como funciona</span>
-    <h2 class="reveal" style="text-align: center; color: var(--white);">Uma sessão direta.<br>Um mapa que é seu.</h2>
+<!-- O QUE RECEBE -->
+<section class="s-dk">
+<div class="w">
+  <span class="lbl r">O que você recebe</span>
+  <h2 class="sh r">Seu Mapa completo e personalizado.</h2>
 
-    <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 48px;">
-
-      <div class="reveal" style="background: rgba(255,255,255,0.05); border-left: 3px solid var(--terracota-lt); padding: 32px 36px; display: flex; gap: 28px; align-items: flex-start;">
-        <span style="font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: rgba(255,255,255,0.12); line-height: 1; flex-shrink: 0; width: 44px;">01</span>
-        <div>
-          <h4 style="font-family: 'Jost', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--terracota-lt); margin-bottom: 10px;">Formulário de diagnóstico</h4>
-          <p style="font-size: 16px; color: var(--cream-dk); line-height: 1.8; text-align: left;">Antes da sessão, você preenche um diagnóstico sobre o momento atual do seu negócio, seu padrão de decisão e suas principais dificuldades. Isso me permite chegar na conversa já com uma leitura do seu cenário, para que cada minuto seja usado com precisão.</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="background: rgba(255,255,255,0.08); border-left: 3px solid var(--terracota-lt); padding: 32px 36px; display: flex; gap: 28px; align-items: flex-start;">
-        <span style="font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: rgba(255,255,255,0.12); line-height: 1; flex-shrink: 0; width: 44px;">02</span>
-        <div>
-          <h4 style="font-family: 'Jost', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--terracota-lt); margin-bottom: 10px;">Sessão individual — 1h30</h4>
-          <p style="font-size: 16px; color: var(--cream-dk); line-height: 1.8; text-align: left; margin-bottom: 16px;">Em nossa sessão ao vivo, identificaremos seu temperamento, o ponto exato onde suas decisões começam a se desalinhar da sua natureza e onde você sente que as coisas travam.</p>
-          <p style="font-size: 16px; color: var(--cream-dk); line-height: 1.8; text-align: left;">A partir dessa análise, direciono o caminho que você precisa seguir para sair desse ciclo. Sem teoria desnecessária, sem respostas padronizadas que servem para todo mundo.</p>
-        </div>
-      </div>
-
-      <div class="reveal" style="background: rgba(255,255,255,0.05); border-left: 3px solid var(--terracota-lt); padding: 32px 36px; display: flex; gap: 28px; align-items: flex-start;">
-        <span style="font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: rgba(255,255,255,0.12); line-height: 1; flex-shrink: 0; width: 44px;">03</span>
-        <div>
-          <h4 style="font-family: 'Jost', sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--terracota-lt); margin-bottom: 10px;">Entrega do Mapa</h4>
-          <p style="font-size: 16px; color: var(--cream-dk); line-height: 1.8; text-align: left;">Você recebe o seu Mapa completo e personalizado em PDF e Notion. Não é um documento para ler uma vez. É uma referência para usar sempre que uma decisão importante aparecer. Para que você não precise depender de memória ou de mais uma sessão para lembrar do que é seu.</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div style="margin-top: 48px; padding: 36px 32px; background: rgba(139,94,66,0.4); text-align: center;" class="reveal">
-      <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 4vw, 36px); color: var(--white); font-style: italic; line-height: 1.4;">Você não sai com mais ideias.<br>Você sai com direção.</p>
-    </div>
-
-  </div>
+  <ul class="lbullets r">
+    <li><span class="ck">✔</span>Sessão individual de até 1h30</li>
+    <li><span class="ck">✔</span>Identificação do seu temperamento</li>
+    <li><span class="ck">✔</span>Mapeamento dos seus padrões de decisão</li>
+    <li><span class="ck">✔</span>Clareza sobre os pontos que mais geram desgaste hoje</li>
+    <li><span class="ck">✔</span>Direcionamentos personalizados para o seu negócio: tomada de decisão, posicionamento, produção de conteúdo, vendas, produtividade e rotina</li>
+    <li><span class="ck">✔</span>Versão do Mapa no Notion e em PDF</li>
+  </ul>
+</div>
 </section>
 
-<!-- PRE-MANIFESTO CLOSING -->
-<section style="background: var(--cream-dk); padding: 80px 24px; text-align: center;">
-  <div style="max-width: 640px; margin: 0 auto;">
-    <span style="font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--terracota); font-family: 'Jost', sans-serif; font-weight: 500; display: block; margin-bottom: 32px;">O que muda depois</span>
-    <div style="display: flex; flex-direction: column; gap: 16px; text-align: left; max-width: 480px; margin: 0 auto 48px;">
-      <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--light);"><span style="color: var(--terracota); flex-shrink: 0; font-weight: 500;">✔</span> Seu posicionamento começa a filtrar quem tem intenção de compra</p>
-      <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--light);"><span style="color: var(--terracota); flex-shrink: 0; font-weight: 500;">✔</span> Seu conteúdo deixa de ser esforço constante e passa a ter direção</p>
-      <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--light);"><span style="color: var(--terracota); flex-shrink: 0; font-weight: 500;">✔</span> Sua rotina e produtividade passam a respeitar o seu ritmo</p>
-      <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--light);"><span style="color: var(--terracota); flex-shrink: 0; font-weight: 500;">✔</span> Suas vendas deixam de depender de picos de energia</p>
-      <p style="font-size: 17px; color: var(--dark); font-family: 'Jost', sans-serif; font-weight: 300; display: flex; gap: 12px; align-items: flex-start; padding: 14px 0;"><span style="color: var(--terracota); flex-shrink: 0; font-weight: 500;">✔</span> Você para de improvisar e começa a operar com intenção</p>
-    </div>
-    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 3.5vw, 32px); color: var(--terracota-dk); font-style: italic; line-height: 1.5;">Quando a estratégia respeita sua natureza,<br>seu negócio ganha estabilidade.</p>
+<!-- O QUE MUDA -->
+<section class="s">
+<div class="w">
+  <h2 class="sh r">O que muda depois do Mapa</h2>
+
+  <p class="r" style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4.5vw,44px);font-weight:600;color:var(--DK);line-height:1.3;margin-bottom:32px;">Você não sai com mais ideias. Sai com clareza.</p>
+
+  <ul class="lbullets r">
+    <li><span class="ck">✔</span>Clareza para entender por que algumas coisas nunca se sustentaram</li>
+    <li><span class="ck">✔</span>Clareza para reconhecer o que realmente faz sentido para você</li>
+    <li><span class="ck">✔</span>Clareza para parar de mudar de direção o tempo inteiro</li>
+    <li><span class="ck">✔</span>Clareza para construir um negócio que não dependa de esforço constante para continuar existindo</li>
+  </ul>
+
+  <div class="box-brown r">
+    <p>Porque quando você para de lutar contra a sua própria forma de funcionar, a energia que antes era gasta tentando se adaptar volta a estar disponível para crescer.</p>
   </div>
+</div>
 </section>
 
 <!-- PARA QUEM -->
-<section class="para-quem">
-  <div class="container">
-    <span class="section-label reveal">Para quem é</span>
-    <h2 class="reveal">Para a mulher que já<br>sabe trabalhar,<br><em style="font-style:italic; color: var(--terracota)">não sustenta.</em></h2>
+<section class="s-dk">
+<div class="w">
+  <span class="lbl r">Para quem é</span>
+  <h2 class="sh r">Para mulheres que:</h2>
 
-
-    <ul class="checklist reveal">
-      <li><span class="check">✔</span> Já está no digital há pelo menos 1 ano</li>
-      <li><span class="check">✔</span> Tem experiência e competência, mas não sustenta consistência</li>
-      <li><span class="check">✔</span> Sente que perdeu a própria voz tentando se encaixar no padrão</li>
-      <li><span class="check">✔</span> Quer parar de recomeçar e começar a consolidar resultados</li>
-      <li><span class="check">✔</span> Está disposta a entender com generosidade e aceitação a sua própria natureza</li>
-    </ul>
-
-    <div class="nao-para reveal" style="text-align: left;">
-      <h4>Não é para você se</h4>
-      <ul>
-        <li>Acredita que o que falta é a estratégia certa de marketing, vendas ou conteúdo</li>
-        <li>Busca fórmulas prontas para replicar</li>
-        <li>Não está disposta a se entender nem a olhar com honestidade para o seu próprio padrão</li>
-      </ul>
-    </div>
-  </div>
+  <ul class="lbullets r">
+    <li><span class="ck">✔</span>Têm muito conhecimento, mas continuam duvidando de si</li>
+    <li><span class="ck">✔</span>Sentem dificuldade para decidir e manter uma direção</li>
+    <li><span class="ck">✔</span>Mudam constantemente de estratégia ou de posicionamento, mas não se sentem autênticas</li>
+    <li><span class="ck">✔</span>Estão cansadas de tentar copiar o que funciona para outras mulheres</li>
+    <li><span class="ck">✔</span>Sentem que se esforçam demais e consolidam poucos resultados</li>
+    <li><span class="ck">✔</span>Querem crescer sem precisar se transformar em alguém que não são</li>
+  </ul>
+</div>
 </section>
 
 <!-- INVESTIMENTO -->
-<section class="investimento" id="formulario">
-  <div class="container">
-    <span class="section-label">Investimento</span>
-    <h2 class="reveal" style="color: var(--white);">Mapa do Temperamento<br>no Negócio</h2>
+<section class="s-dark" id="form">
+<div class="w" style="text-align:center;">
+  <span class="lbl-lt r">O investimento</span>
+  <h2 class="r" style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,3vw,32px);color:var(--WH);margin-bottom:4px;">Mapa do Temperamento no Negócio</h2>
+  <span class="preco r">R$ 800,00</span>
+  <span class="preco-sub r">vagas limitadas para acompanhamento individual</span>
 
-    <span class="preco reveal">R$ 800,00</span>
-    <p class="preco-detalhe reveal">vagas limitadas para acompanhamento individual</p>
+  <p class="r" style="color:var(--CD);font-size:17px;">Porque continuar recomeçando tem um custo.</p>
+  <p class="r" style="color:var(--CD);font-size:17px;">Custa energia.</p>
+  <p class="r" style="color:var(--CD);font-size:17px;">Custa tempo.</p>
+  <p class="r" style="color:var(--CD);font-size:17px;">Custa confiança.</p>
+  <p class="r" style="color:var(--CD);font-size:17px;">Custa oportunidades que nunca chegam a amadurecer.</p>
 
-    <div class="investimento-detalhe reveal">
-      <div class="inv-item">
-        <span>Sessão individual</span>
-        <p>1h30 de duração</p>
-      </div>
-      <div class="inv-item">
-        <span>Entregável</span>
-        <p>PDF + Notion</p>
-      </div>
-      <div class="inv-item">
-        <span>Formato</span>
-        <p>Personalizado</p>
-      </div>
-    </div>
+  <span class="encurtar r">O Mapa existe para encurtar esse caminho.</span>
 
-    <div class="reveal">
-      <a href="https://form.respondi.app/CzU888aK" class="btn btn-cream" style="font-size: 12px; padding: 18px 48px;">
-        Quero meu Mapa personalizado
-      </a>
-      <p style="font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 20px; letter-spacing: 0.5px;">
-        Após o preenchimento, entrarei em contato em até 48 horas para agendar a sua sessão.
-      </p>
-    </div>
+  <div style="margin-top:40px;" class="r">
+    <a href="https://form.respondi.app/CzU888aK" target="_blank" class="btn btn-cr" style="font-size:12px;padding:18px 52px;">Quero meu Mapa personalizado</a>
+    <p style="font-size:12px;color:rgba(255,255,255,.3);margin-top:20px;">Após o preenchimento, entrarei em contato em até 48 horas para agendar a sua sessão.</p>
   </div>
+</div>
 </section>
 
-<!-- MANIFESTO -->
+<!-- SOBRE MIM -->
+<section class="s">
+<div class="w">
+  <span class="lbl r">Sobre mim</span>
+  <h2 class="sobre-h r">Eu sou Rafaela Pizzi.</h2>
+
+  <p class="r">Criadora do movimento Decisão e Gestão Feminina.</p>
+  <p class="r">Nos últimos anos observei um padrão se repetir entre mulheres inteligentes, competentes e experientes que estão no digital:</p>
+  <p class="serif r"><em>Elas não travavam porque não sabiam o que fazer.</em></p>
+  <p class="serif r"><em>Travavam porque não conseguiam sustentar uma direção.</em></p>
+  <p class="r">E isso também fez parte da minha própria história.</p>
+  <p class="r">Foi dessa travessia que nasceu o trabalho que faço hoje.</p>
+  <p class="r">Ajudar mulheres a construir negócios que respeitem quem elas são. E não apenas o que o mercado espera delas.</p>
+</div>
+</section>
+
+<!-- MANIFESTO FINAL -->
 <section class="manifesto">
-  <div class="container">
-    <p class="manifesto-text reveal">
-      Você não precisa mais construir o negócio contra si.<br><br>
-      <em>Seu temperamento não é um obstáculo para crescer.</em><br><br>
-      É o critério que mostra como você sustenta crescimento.
-    </p>
-    <p class="manifesto-author reveal">Rafaela Pizzi · Decisão e Gestão Feminina no Digital</p>
-  </div>
+<div style="max-width:560px;margin:0 auto;">
+  <h2 class="mani-title r">Você não precisa<br>de mais uma estratégia.</h2>
+  <p class="mani-body r">
+    Talvez precise parar de tentar sustentar decisões que nunca fizeram sentido para você.<br><br>
+    <em>E começar a construir a partir de um lugar que consiga permanecer.</em>
+  </p>
+  <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--MD);margin-top:40px;" class="r">Rafaela Pizzi · Decisão e Gestão Feminina no Digital</p>
+</div>
 </section>
 
-<!-- FOOTER -->
+<!-- FAQ -->
+<section class="s-dk">
+<div class="w">
+  <span class="lbl r">Antes de decidir</span>
+  <h2 class="sh r">Perguntas frequentes</h2>
+
+  <div class="r">
+    <div class="faq">
+      <h4>O Mapa é um teste de temperamento?</h4>
+      <p>Não. Um teste entrega um perfil genérico. O Mapa é um diagnóstico personalizado construído a partir de uma sessão individual que considera o seu momento no negócio, as suas decisões reais e os seus padrões específicos.</p>
+    </div>
+    <div class="faq">
+      <h4>Preciso ter um negócio consolidado?</h4>
+      <p>Precisa estar no digital há pelo menos 1 ano e ter clareza sobre o que oferece. O Mapa trabalha com o que já existe.</p>
+    </div>
+    <div class="faq">
+      <h4>Isso é mentoria ou consultoria?</h4>
+      <p>Nenhuma das duas. É um diagnóstico com entregável. Você sai com um documento personalizado para consultar sempre que precisar. Se quiser aprofundar o processo, o próximo passo é a Mentoria MAPA.</p>
+    </div>
+    <div class="faq">
+      <h4>Por que R$ 800,00?</h4>
+      <p>Porque o Mapa encurta um processo que normalmente leva meses de tentativa, erro e frustração. Um único ciclo de recomeço já costuma custar mais do que isso em tempo, em energia e na confiança que vai sendo drenada.</p>
+    </div>
+    <div class="faq">
+      <h4>Como recebo o Mapa?</h4>
+      <p>Em PDF e Notion, em até 5 dias úteis após a sessão. Não é para ler uma vez. É uma referência para usar sempre que uma decisão importante aparecer.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:48px;" class="r">
+    <a href="https://form.respondi.app/CzU888aK" target="_blank" class="btn btn-t" style="font-size:12px;padding:18px 48px;">Quero meu Mapa personalizado</a>
+    <p style="font-size:13px;color:var(--MD);margin-top:16px;">Após o preenchimento, entrarei em contato em até 48 horas para agendar a sua sessão.</p>
+  </div>
+</div>
+</section>
+
+
+
 <footer>
-  <p class="footer-brand">Rafaela Pizzi</p>
-  <p>Decisão e Gestão Feminina no Digital · @arafaelapizzi</p>
+  <span class="fbrand">Rafaela Pizzi</span>
+  <p class="fsub">Decisão e Gestão Feminina no Digital · @arafaelapizzi</p>
 </footer>
 
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
-
-  // Sticky CTA
-  const stickyCta = document.getElementById('stickyCta');
-  const investSection = document.getElementById('formulario');
-  
-  window.addEventListener('scroll', () => {
-    const investTop = investSection.getBoundingClientRect().top;
-    const investBottom = investSection.getBoundingClientRect().bottom;
-    
-    // Show after 600px scroll, hide when investment section is visible
-    if (window.scrollY > 600 && investTop > 100) {
-      stickyCta.classList.add('show');
-    } else {
-      stickyCta.classList.remove('show');
-    }
+const els = document.querySelectorAll('.r');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),60);obs.unobserve(e.target);}
   });
-</script>
+},{threshold:0.07});
+els.forEach(el=>obs.observe(el));
 
+const sk = document.getElementById('stk');
+const fm = document.getElementById('form');
+window.addEventListener('scroll',()=>{
+  const top = fm ? fm.getBoundingClientRect().top : 9999;
+  sk.classList.toggle('show', window.scrollY > 600 && top > 100);
+});
+</script>
 </body>
 </html>
